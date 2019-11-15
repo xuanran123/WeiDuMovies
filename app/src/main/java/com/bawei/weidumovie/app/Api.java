@@ -17,6 +17,7 @@ import com.bawei.weidumovie.model.bean.Recommend;
 import com.bawei.weidumovie.model.bean.Request;
 import com.bawei.weidumovie.model.bean.XuanZuo;
 import com.bawei.weidumovie.model.bean.Zuowui;
+import com.bawei.weidumovie.model.bean.ResultBean;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public interface Api {
     //登录
     @FormUrlEncoded
     @POST("user/v2/login")
-    Observable<Request<Login>>login(@Field("email")String email, @Field("pwd")String pwd);
+    Observable<Request<Logins>>login(@Field("email")String email,@Field("pwd")String pwd);
    //注册
     @FormUrlEncoded
     @POST("user/v2/register")
@@ -116,4 +117,10 @@ public interface Api {
     //根据影厅id 查询座位信息
     @GET("movie/v2/findSeatInfo")
     Observable<Request<List<Zuowui>>>findSeatInfo(@Query("hallId")int hallId);
+
+
+    //根据电影的id查询电影评论
+    @GET("movie/v2/findAllMovieComment")
+    Observable<Request<List<ResultBean>>>findComment(@Query("movieId") int movieid, @Query("page") int page, @Query("count") int count);
+
 }
