@@ -32,84 +32,23 @@
             />
     </RelativeLayout>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.7"
-        android:background="#1c2243"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="666"
-                android:textColor="#fff"
-                android:id="@+id/pq_one"
-                android:layout_centerVertical="true"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="666"
-                android:textColor="#fff"
-                android:id="@+id/pq_two"
-                android:layout_toRightOf="@id/pq_one"
-                android:layout_centerVertical="true"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="666"
-                android:textColor="#fff"
-                android:id="@+id/pq_three"
-                android:layout_toRightOf="@id/pq_two"
-                android:layout_centerVertical="true"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="666"
-                android:textColor="#fff"
-                android:id="@+id/pq_fore"
-                android:layout_toRightOf="@id/pq_three"
-                android:layout_centerVertical="true"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="666"
-                android:textColor="#fff"
-                android:id="@+id/pq_five"
-                android:layout_toRightOf="@id/pq_fore"
-                android:layout_centerVertical="true"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="666"
-                android:textColor="#fff"
-                android:id="@+id/pq_six"
-                android:layout_toRightOf="@id/pq_fore"
-                android:layout_centerVertical="true"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="666"
-                android:textColor="#fff"
-                android:id="@+id/pq_seven"
-                android:layout_toRightOf="@id/pq_fore"
-                android:layout_centerVertical="true"
-                />
 
-        </RelativeLayout>
-    </HorizontalScrollView>
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
+            <android.support.design.widget.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/pq_tab"
+                android:layout_weight="1"
+                android:background="#1c2243"
+                ></android.support.design.widget.TabLayout>
+
+
+    <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:id="@+id/pq_xrlv"
-        ></com.jcodecraeer.xrecyclerview.XRecyclerView>
+        android:id="@+id/pq_vp"
+        >
+
+    </android.support.v4.view.ViewPager>
+
 </LinearLayout>

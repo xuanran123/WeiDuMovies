@@ -1,41 +1,58 @@
 package com.bawei.weidumovie.view.activity;
 
 import android.os.Bundle;
-import android.widget.TextView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
 import com.bawei.weidumovie.R;
 import com.bawei.weidumovie.model.bean.Request;
 import com.bawei.weidumovie.presenter.PeriodPresenter;
+import com.bawei.weidumovie.view.adpater.Madapter;
 import com.bawei.weidumovie.view.consion.DataCall;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.bawei.weidumovie.view.fragment_more.Fragment_pq;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 public class ScheduleActivity extends BaseActivity {
 
 
+    @BindView(R.id.pq_tab)
+    TabLayout pqTab;
+    @BindView(R.id.pq_vp)
+    ViewPager pqVp;
     private PeriodPresenter periodPresenter;
-    private TextView pq_one;
-    private TextView pq_two;
-    private TextView pq_three;
-    private TextView pq_fore;
-    private TextView pq_five;
-    private TextView pq_six;
-    private TextView pq_seven;
-    private XRecyclerView pq_xrlv;
+    private ArrayList<Fragment> list;
+    private Madapter madapter;
+
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        pq_one = findViewById(R.id.pq_one);
-        pq_two = findViewById(R.id.pq_two);
-        pq_three = findViewById(R.id.pq_three);
-        pq_fore = findViewById(R.id.pq_fore);
-        pq_five = findViewById(R.id.pq_five);
-        pq_six = findViewById(R.id.pq_six);
-        pq_seven = findViewById(R.id.pq_seven);
-        pq_xrlv = findViewById(R.id.pq_xrlv);
 
+        pqTab.addTab(pqTab.newTab());
+        pqTab.addTab(pqTab.newTab());
+        pqTab.addTab(pqTab.newTab());
+        pqTab.addTab(pqTab.newTab());
+        pqTab.addTab(pqTab.newTab());
+        pqTab.addTab(pqTab.newTab());
+        pqTab.addTab(pqTab.newTab());
+
+        list = new ArrayList<>();
+        list.add(new Fragment_pq(1));
+        list.add(new Fragment_pq(1));
+        list.add(new Fragment_pq(1));
+        list.add(new Fragment_pq(1));
+        list.add(new Fragment_pq(1));
+        list.add(new Fragment_pq(1));
+        list.add(new Fragment_pq(1));
+
+        madapter = new Madapter(getSupportFragmentManager(),list);
+        pqVp.setAdapter(madapter);
+        pqTab.setupWithViewPager(pqVp);
         periodPresenter = new PeriodPresenter(new PeriodPresen());
         periodPresenter.Request();
     }
@@ -54,26 +71,18 @@ public class ScheduleActivity extends BaseActivity {
     private class PeriodPresen implements DataCall<Request> {
 
 
-
         @Override
         public void Success(Request data) {
-            ArrayList<String> list = (ArrayList<String>) data.result;
-            Toast.makeText(ScheduleActivity.this, list.get(0), Toast.LENGTH_SHORT).show();
-            String one = list.get(0);
-            String two = list.get(1);
-            String three = list.get(2);
-            String fore = list.get(3);
-            String five = list.get(4);
-            String six = list.get(5);
-            String seven = list.get(6);
-
-            pq_one.setText(one);
-            pq_two.setText(two);
-            pq_three.setText(three);
-            pq_fore.setText(fore);
-            pq_five.setText(five);
-            pq_six.setText(six);
-            pq_seven.setText(seven);
+            List<String> result = (List<String>) data.result;
+            String s = result.toString();
+            String[] split = s.split(",");
+            pqTab.getTabAt(0).setText(split[0]);
+            pqTab.getTabAt(1).setText(split[1]);
+            pqTab.getTabAt(2).setText(split[2]);
+            pqTab.getTabAt(3).setText(split[3]);
+            pqTab.getTabAt(4).setText(split[4]);
+            pqTab.getTabAt(5).setText(split[5]);
+            pqTab.getTabAt(6).setText(split[6]);
         }
 
         @Override
