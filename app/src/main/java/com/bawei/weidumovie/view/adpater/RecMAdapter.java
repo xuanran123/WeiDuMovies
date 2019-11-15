@@ -15,6 +15,7 @@ import com.bawei.weidumovie.R;
 import com.bawei.weidumovie.model.bean.Recommend;
 import com.bawei.weidumovie.presenter.RecommendPresenter;
 import com.bawei.weidumovie.view.activity.InForActivity;
+import com.bawei.weidumovie.view.activity.XuanZeActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -54,7 +55,13 @@ public class RecMAdapter extends RecyclerView.Adapter<RecMAdapter.MyViewHolder> 
         myViewHolder.name.setText(list.get(i).name);
         myViewHolder.site.setText(list.get(i).address);
 
-
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, XuanZeActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
 

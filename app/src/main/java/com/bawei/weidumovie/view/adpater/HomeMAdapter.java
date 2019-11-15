@@ -10,12 +10,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bawei.weidumovie.DaoMaster;
+import com.bawei.weidumovie.DaoSession;
 import com.bawei.weidumovie.R;
+import com.bawei.weidumovie.UserDao;
 import com.bawei.weidumovie.model.bean.Home;
 import com.bawei.weidumovie.model.bean.HomeOne;
+import com.bawei.weidumovie.model.bean.User;
+import com.bawei.weidumovie.view.activity.LoginActivity;
 import com.bawei.weidumovie.view.activity.MovieDetailsActivity;
+import com.bawei.weidumovie.view.activity.XuanZuoActivity;
 import com.bumptech.glide.Glide;
+
+import org.greenrobot.greendao.AbstractDaoSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +38,8 @@ import java.util.List;
 public class HomeMAdapter extends RecyclerView.Adapter<HomeMAdapter.MyViewHolder> {
     private ArrayList<Home> list = new ArrayList<>();
     private Context context;
+    private UserDao userDao;
+    private String status;
 
     public HomeMAdapter(Context context) {
         this.context = context;
@@ -54,12 +65,36 @@ public class HomeMAdapter extends RecyclerView.Adapter<HomeMAdapter.MyViewHolder
         Glide.with(context).load(list.get(i).imageUrl).into(myViewHolder.iv);
         myViewHolder.score_tv.setText(list.get(i).score+"");
         myViewHolder.tv.setText(list.get(i).name);
+        DaoSession daoSession = DaoMaster.newDevSession(context, UserDao.TABLENAME);
+        userDao = daoSession.getUserDao();
+
+        /*final List<User> users = userDao.loadAll();
+        for (int j = 0; j < users.size(); j++) {
+            status = users.get(0).getStatus();
+        }*/
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 intent.putExtra("movieid",list.get(i).movieId);
                 context.startActivity(intent);
+
+            }
+        });
+        myViewHolder.hotmovie_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            /*    if (status.equals("0000")) {
+
+                }else{
+                   *//* Toast.makeText(context, "请先登录!!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    context.startActivity(intent);*//*
+                }*/
+                Intent intent = new Intent(context, XuanZuoActivity.class);
+                intent.putExtra("movieid",list.get(i).movieId);
+                context.startActivity(intent);
+
             }
         });
     }
@@ -81,8 +116,16 @@ public class HomeMAdapter extends RecyclerView.Adapter<HomeMAdapter.MyViewHolder
             score_tv = itemView.findViewById(R.id.score_tv);
             tv = score_tv = itemView.findViewById(R.id.hotmovie_tv);
             hotmovie_bt = itemView.findViewById(R.id.hotmovie_bt);
-
         }
 
+    }
+    private IsWork isWork;
+
+    public void setIsWork(IsWork isWork) {
+        this.isWork = isWork;
+    }
+
+    public interface IsWork{
+        void book(int id);
     }
 }

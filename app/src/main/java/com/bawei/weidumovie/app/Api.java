@@ -1,11 +1,13 @@
 package com.bawei.weidumovie.app;
 
+import com.bawei.weidumovie.R;
 import com.bawei.weidumovie.model.bean.Banners;
 import com.bawei.weidumovie.model.bean.DetailsBean;
 import com.bawei.weidumovie.model.bean.Evaluate;
 import com.bawei.weidumovie.model.bean.Home;
 import com.bawei.weidumovie.model.bean.HomeOne;
 import com.bawei.weidumovie.model.bean.Information;
+import com.bawei.weidumovie.model.bean.Login;
 import com.bawei.weidumovie.model.bean.Logins;
 import com.bawei.weidumovie.model.bean.MovieFocusBean;
 import com.bawei.weidumovie.model.bean.Nearby;
@@ -13,6 +15,8 @@ import com.bawei.weidumovie.model.bean.QuYu;
 import com.bawei.weidumovie.model.bean.QuYuQuery;
 import com.bawei.weidumovie.model.bean.Recommend;
 import com.bawei.weidumovie.model.bean.Request;
+import com.bawei.weidumovie.model.bean.XuanZuo;
+import com.bawei.weidumovie.model.bean.Zuowui;
 import com.bawei.weidumovie.model.bean.ResultBean;
 
 import java.util.List;
@@ -106,8 +110,16 @@ public interface Api {
     @GET("tool/v2/findDateList")
     Observable<Request>findDateList();
 
+    //根据电影ID和影院ID查询电影排期列表
+    @GET("movie/v2/findMovieSchedule")
+    Observable<Request<List<XuanZuo>>>findMovieSchedule(@Query("movieId")int movieId,@Query("cinemaId")int cinemaId);
 
-    
+    //根据影厅id 查询座位信息
+    @GET("movie/v2/findSeatInfo")
+    Observable<Request<List<Zuowui>>>findSeatInfo(@Query("hallId")int hallId);
+
+
+
     //根据电影的id查询电影评论
     @GET("movie/v2/findAllMovieComment")
     Observable<Request<List<ResultBean>>>findComment(@Query("movieId") int movieid, @Query("page") int page, @Query("count") int count);
