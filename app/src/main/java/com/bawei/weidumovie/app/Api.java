@@ -123,4 +123,5 @@ public interface Api {
     @GET("movie/v2/findAllMovieComment")
     Observable<Request<List<ResultBean>>>findComment(@Query("movieId") int movieid, @Query("page") int page, @Query("count") int count);
 
+
 }

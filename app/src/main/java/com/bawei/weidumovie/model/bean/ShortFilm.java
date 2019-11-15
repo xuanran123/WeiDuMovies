@@ -3,7 +3,7 @@ package com.bawei.weidumovie.model.bean;
 创建人:郭学飞*/
 
 
-class ShortFilm {
+public class ShortFilm {
     public String imageUrl;
     public String videoUrl;
 }
