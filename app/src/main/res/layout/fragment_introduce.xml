@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingVertical="@dimen/dp_40"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#141931"
     >
-  <ScrollView
+  <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <LinearLayout
         android:layout_marginBottom="@dimen/dp_50"
@@ -67,7 +67,6 @@
 
         </android.support.v7.widget.RecyclerView>
 
-
     </LinearLayout>
-  </ScrollView>
+  </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

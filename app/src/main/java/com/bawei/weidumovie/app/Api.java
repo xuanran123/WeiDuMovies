@@ -119,7 +119,6 @@ public interface Api {
     Observable<Request<List<Zuowui>>>findSeatInfo(@Query("hallId")int hallId);
 
 
-
     //根据电影的id查询电影评论
     @GET("movie/v2/findAllMovieComment")
     Observable<Request<List<ResultBean>>>findComment(@Query("movieId") int movieid, @Query("page") int page, @Query("count") int count);

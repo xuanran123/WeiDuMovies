@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bawei.weidumovie.R;
-import com.bawei.weidumovie.model.bean.MovieDirec;
 import com.bawei.weidumovie.model.bean.ResultBean;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -40,18 +39,18 @@ public class CommentDapter extends RecyclerView.Adapter<CommentDapter.MyViewHold
             Log.d("datasize",data.size()+"");
         }
     }
-
     @NonNull
     @Override
     public CommentDapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_comment, null);
-        return new CommentDapter.MyViewHolder(view);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CommentDapter.MyViewHolder myViewHolder, int i) {
         Glide.with(context).load(list.get(i).commentHeadPic).apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(myViewHolder.comment_avatar);
+        Log.d("datasize",list.get(i).commentUserName);
         myViewHolder.comment_name.setText(list.get(i).commentUserName);
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MM"+"-"+"dd"+"  "+"HH"+"mm");
         String format = simpleDateFormat.format(list.get(i).commentTime);
