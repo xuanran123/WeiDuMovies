@@ -13,6 +13,7 @@ import com.bawei.weidumovie.model.bean.QuYu;
 import com.bawei.weidumovie.model.bean.QuYuQuery;
 import com.bawei.weidumovie.model.bean.Recommend;
 import com.bawei.weidumovie.model.bean.Request;
+import com.bawei.weidumovie.model.bean.ResultBean;
 
 import java.util.List;
 
@@ -104,4 +105,11 @@ public interface Api {
     //查询一周排期的时间
     @GET("tool/v2/findDateList")
     Observable<Request>findDateList();
+
+
+    
+    //根据电影的id查询电影评论
+    @GET("movie/v2/findAllMovieComment")
+    Observable<Request<List<ResultBean>>>findComment(@Query("movieId") int movieid, @Query("page") int page, @Query("count") int count);
+
 }

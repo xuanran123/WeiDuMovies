@@ -84,7 +84,6 @@ public class MovieDetailsActivity extends BaseActivity {
         movieid = intent.getIntExtra("movieid", 0);
         movieDetailPresenter = new MovieDetailPresenter(new MovieDetailPresen());
         movieDetailPresenter.Request(movieid);
-        Toast.makeText(this, movieid+"", Toast.LENGTH_SHORT).show();
         strings.add("介绍");
         strings.add("预告");
         strings.add("剧照");
@@ -136,7 +135,6 @@ public class MovieDetailsActivity extends BaseActivity {
             String format = simpleDateFormat.format(data.releaseTime);
             mMovieTime.setText(format);
             mMovieArea.setText(data.placeOrigin + "上映");
-            Toast.makeText(MovieDetailsActivity.this, data.whetherFollow+"", Toast.LENGTH_SHORT).show();
             if (data.whetherFollow==1){
                 mAtteationno.setVisibility(View.GONE);
                 mAtteationyes.setVisibility(View.VISIBLE);
