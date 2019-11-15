@@ -10,11 +10,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bawei.weidumovie.DaoMaster;
+import com.bawei.weidumovie.DaoSession;
 import com.bawei.weidumovie.R;
+import com.bawei.weidumovie.UserDao;
 import com.bawei.weidumovie.disanfang.Base64;
 import com.bawei.weidumovie.disanfang.EncryptUtil;
+import com.bawei.weidumovie.model.bean.Login;
 import com.bawei.weidumovie.model.bean.Logins;
 import com.bawei.weidumovie.model.bean.Request;
+import com.bawei.weidumovie.model.bean.User;
 import com.bawei.weidumovie.presenter.LoginPresenter;
 import com.bawei.weidumovie.view.consion.DataCall;
 
@@ -74,13 +79,21 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    private class LoginPresen implements DataCall<Logins> {
+    private class LoginPresen implements DataCall<Request<Login>> {
+
+        UserDao userDao;
+
         @Override
-        public void Success(Logins data) {
+        public void Success(Request<Login> data) {
             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
+            DaoSession daoSession = DaoMaster.newDevSession(LoginActivity.this, UserDao.TABLENAME);
+            userDao = daoSession.getUserDao();
+            userDao.deleteAll();
+
+            User user = new User();
+            user.setStatus(data.status);
+            finish();
         }
 
         @Override

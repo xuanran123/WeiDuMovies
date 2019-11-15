@@ -111,6 +111,14 @@ public class MovieDetailsActivity extends BaseActivity {
     public void onViewClicked() {
     }
 
+    @OnClick(R.id.detail_xz)
+    public void onClicked() {
+
+        Intent intent = new Intent(MovieDetailsActivity.this, XuanZuoActivity.class);
+        intent.putExtra("movieid",movieid);
+        startActivity(intent);
+    }
+
     @OnClick({R.id.emptytrue, R.id.emptyfalse})
     public void onViewClicked(View view) {
         switch (view.getId()) {

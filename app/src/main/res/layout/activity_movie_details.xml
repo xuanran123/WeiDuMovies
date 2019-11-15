@@ -211,12 +211,14 @@
           <Button
             android:text="写影评"
               android:layout_weight="1.5"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
+              android:layout_width="@dimen/dp_0"
+              android:layout_height="match_parent"
               android:background="#e8be18"
+              android:id="@+id/detail_yp"
             />
             <Button
-                android:text="写影评"
+                android:text="选座购票"
+                android:id="@+id/detail_xz"
                 android:layout_weight="2"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"

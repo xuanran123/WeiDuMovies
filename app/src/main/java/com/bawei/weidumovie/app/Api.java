@@ -1,11 +1,13 @@
 package com.bawei.weidumovie.app;
 
+import com.bawei.weidumovie.R;
 import com.bawei.weidumovie.model.bean.Banners;
 import com.bawei.weidumovie.model.bean.DetailsBean;
 import com.bawei.weidumovie.model.bean.Evaluate;
 import com.bawei.weidumovie.model.bean.Home;
 import com.bawei.weidumovie.model.bean.HomeOne;
 import com.bawei.weidumovie.model.bean.Information;
+import com.bawei.weidumovie.model.bean.Login;
 import com.bawei.weidumovie.model.bean.Logins;
 import com.bawei.weidumovie.model.bean.MovieFocusBean;
 import com.bawei.weidumovie.model.bean.Nearby;
@@ -13,6 +15,8 @@ import com.bawei.weidumovie.model.bean.QuYu;
 import com.bawei.weidumovie.model.bean.QuYuQuery;
 import com.bawei.weidumovie.model.bean.Recommend;
 import com.bawei.weidumovie.model.bean.Request;
+import com.bawei.weidumovie.model.bean.XuanZuo;
+import com.bawei.weidumovie.model.bean.Zuowui;
 
 import java.util.List;
 
@@ -35,7 +39,7 @@ public interface Api {
     //登录
     @FormUrlEncoded
     @POST("user/v2/login")
-    Observable<Request<Logins>>login(@Field("email")String email,@Field("pwd")String pwd);
+    Observable<Request<Login>>login(@Field("email")String email, @Field("pwd")String pwd);
    //注册
     @FormUrlEncoded
     @POST("user/v2/register")
@@ -104,4 +108,12 @@ public interface Api {
     //查询一周排期的时间
     @GET("tool/v2/findDateList")
     Observable<Request>findDateList();
+
+    //根据电影ID和影院ID查询电影排期列表
+    @GET("movie/v2/findMovieSchedule")
+    Observable<Request<List<XuanZuo>>>findMovieSchedule(@Query("movieId")int movieId,@Query("cinemaId")int cinemaId);
+
+    //根据影厅id 查询座位信息
+    @GET("movie/v2/findSeatInfo")
+    Observable<Request<List<Zuowui>>>findSeatInfo(@Query("hallId")int hallId);
 }

@@ -14,5 +14,5 @@ public class Login {
 //             "userInfo
     public String sessionId;
     public String userId;
-    public List<Logins> userInfo;
+    public Logins userInfo;
 }
