@@ -8,4 +8,5 @@
         android:layout_height="@dimen/dp_200"
         android:id="@+id/trailer_video"
         ></fm.jiecao.jcvideoplayer_lib.JCVideoPlayer>
+
 </LinearLayout>

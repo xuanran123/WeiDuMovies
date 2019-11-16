@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout">
 
-                <ImageView
+                <fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
                     android:id="@+id/room_VideoPlayer"
                     android:layout_width="@dimen/dp_280"
                     android:layout_height="@dimen/dp_120"

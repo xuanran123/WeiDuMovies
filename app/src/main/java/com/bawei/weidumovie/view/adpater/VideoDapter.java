@@ -4,6 +4,7 @@ package com.bawei.weidumovie.view.adpater;
 
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,8 +41,8 @@ public class VideoDapter extends RecyclerView.Adapter<VideoDapter.MyViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull VideoDapter.MyViewHolder myViewHolder, int i) {
-        myViewHolder.video.setUp(list.get(i).videoUrl,null);
-        Glide.with(context).load(list.get(i).videoUrl).into(myViewHolder.video.ivThumb);
+        myViewHolder.video.setUp(list.get(i).videoUrl,"久梦");
+        Glide.with(context).load(list.get(i).imageUrl).into(myViewHolder.video.ivThumb);
     }
 
     @Override

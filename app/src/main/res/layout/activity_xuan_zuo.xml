@@ -20,12 +20,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_500">
+                android:layout_height="@dimen/dp_300">
 
-                <ImageView
-                    android:id="@+id/poster"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+               <fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/dp_200"
+                   android:id="@+id/yingting_player"
+                   />
 
                 <LinearLayout
                     android:layout_width="match_parent"

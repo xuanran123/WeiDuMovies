@@ -46,6 +46,7 @@ public class ForeshowFragment extends Fragment {
         return v;
     }
 
+
     private class MovieDetailPresen implements DataCall<DetailsBean> {
         @Override
         public void Success(DetailsBean data) {

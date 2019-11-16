@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 public class XuanZeActivity extends BaseActivity {
 
@@ -33,8 +34,8 @@ public class XuanZeActivity extends BaseActivity {
     TextView roomName;
     @BindView(R.id.layout)
     LinearLayout layout;
-//    @BindView(R.id.room_VideoPlayer)
-//    fm.jiecao.jcvideoplayer_lib.JCVideoPlayer roomVideoPlayer;
+    @BindView(R.id.room_VideoPlayer)
+    JCVideoPlayer roomVideoPlayer;
     @BindView(R.id.room_movieSeat)
     RecyclerView roomMovieSeat;
     @BindView(R.id.real)
@@ -75,6 +76,7 @@ public class XuanZeActivity extends BaseActivity {
         roomMovieSeat.setAdapter(zwMadapter);
         xuanZePresenter = new XuanZePresenter(new XuanZePresen());
         xuanZePresenter.Request(25, 1);
+
     }
 
     @Override
@@ -87,7 +89,7 @@ public class XuanZeActivity extends BaseActivity {
         @Override
         public void Success(List<XuanZuo> data) {
             xzmAdapter.addAll(data);
-
+            //roomVideoPlayer.setUp(data.);
             xzmAdapter.notifyDataSetChanged();
         }
 

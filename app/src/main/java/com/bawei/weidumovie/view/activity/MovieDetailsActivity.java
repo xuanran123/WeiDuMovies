@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 public class MovieDetailsActivity extends BaseActivity {
 
@@ -110,15 +111,8 @@ public class MovieDetailsActivity extends BaseActivity {
     public void onViewClicked() {
     }
 
-    @OnClick(R.id.detail_xz)
-    public void onClicked() {
 
-        Intent intent = new Intent(MovieDetailsActivity.this, XuanZuoActivity.class);
-        intent.putExtra("movieid",movieid);
-        startActivity(intent);
-    }
-
-    @OnClick({R.id.emptytrue, R.id.emptyfalse})
+    @OnClick({R.id.emptytrue, R.id.emptyfalse,R.id.detail_xz})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.emptytrue:
@@ -126,6 +120,11 @@ public class MovieDetailsActivity extends BaseActivity {
                 break;
             case R.id.emptyfalse:
                 guanzhu(13680,"157364555232013680",movieid);
+                break;
+            case R.id.detail_xz:
+                Intent intent = new Intent(MovieDetailsActivity.this, XuanZuoActivity.class);
+                intent.putExtra("movieid",movieid);
+                startActivity(intent);
                 break;
         }
     }
@@ -189,5 +188,11 @@ public class MovieDetailsActivity extends BaseActivity {
         public void Error(Request request) {
             Toast.makeText(MovieDetailsActivity.this, request.message, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        JCVideoPlayer.releaseAllVideos();
+        super.onPause();
     }
 }
