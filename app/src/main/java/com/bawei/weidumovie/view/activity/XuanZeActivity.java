@@ -1,5 +1,6 @@
 package com.bawei.weidumovie.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bawei.weidumovie.R;
 import com.bawei.weidumovie.model.bean.Request;
@@ -18,6 +20,7 @@ import com.bawei.weidumovie.presenter.XuanZePresenter;
 import com.bawei.weidumovie.view.adpater.XZMAdapter;
 import com.bawei.weidumovie.view.adpater.ZWMadapter;
 import com.bawei.weidumovie.view.consion.DataCall;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -61,10 +64,14 @@ public class XuanZeActivity extends BaseActivity {
     private XuanZePresenter xuanZePresenter;
     private XZMAdapter xzmAdapter;
     private ZWMadapter zwMadapter;
+    private Intent intent;
+    private String imageUrl,videoUrl;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        Intent intent = getIntent();
+        imageUrl = intent.getStringExtra("imageUrl");
+        videoUrl = intent.getStringExtra("videoUrl");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         roomRecycler.setLayoutManager(linearLayoutManager);
@@ -76,6 +83,8 @@ public class XuanZeActivity extends BaseActivity {
         roomMovieSeat.setAdapter(zwMadapter);
         xuanZePresenter = new XuanZePresenter(new XuanZePresen());
         xuanZePresenter.Request(25, 1);
+        roomVideoPlayer.setUp(videoUrl,"");
+        Glide.with(XuanZeActivity.this).load(imageUrl).into(roomVideoPlayer.ivThumb);
 
     }
 

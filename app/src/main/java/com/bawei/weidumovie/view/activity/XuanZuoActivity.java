@@ -16,6 +16,7 @@ import com.bawei.weidumovie.model.bean.Request;
 import com.bawei.weidumovie.presenter.MovieDetailPresenter;
 import com.bawei.weidumovie.presenter.MoviePresenter;
 import com.bawei.weidumovie.view.adpater.MoviedetailsVpDapter;
+import com.bawei.weidumovie.view.adpater.RecMAdapter;
 import com.bawei.weidumovie.view.consion.DataCall;
 import com.bawei.weidumovie.view.xuanzuofragment.PriceFragment;
 import com.bawei.weidumovie.view.xuanzuofragment.QuYuFragment;
@@ -60,13 +61,17 @@ public class XuanZuoActivity extends BaseActivity {
     public ArrayList<String> strings = new ArrayList<>();
     public ArrayList<Fragment> fragments = new ArrayList<>();
     private MovieDetailPresenter movieDetailPresenter;
+    private RecMAdapter recMAdapter=new RecMAdapter();
+    private String imageUrl;
+    private String videoUrl;
+    private String name;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
 
         Intent intent = getIntent();
         movieid = intent.getIntExtra("movieid", 0);
-        Toast.makeText(this, movieid + "", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, movieid + "", Toast.LENGTH_SHORT).show();
         movieDetailPresenter = new MovieDetailPresenter(new MovieDetailPresen());
         movieDetailPresenter.Request(movieid);
         strings.add("海淀区");
@@ -90,6 +95,7 @@ public class XuanZuoActivity extends BaseActivity {
     private class MovieDetailPresen implements DataCall<DetailsBean> {
         @Override
         public void Success(DetailsBean data) {
+            name = data.name;
             movieName.setText(data.name);
             movieType.setText(data.movieType);
             movieDuration.setText(data.duration);
@@ -98,14 +104,32 @@ public class XuanZuoActivity extends BaseActivity {
             movieTime.setText(format);
             movieArea.setText(data.placeOrigin + "上映");
             //设置播放视频地址
-            mYingtingPlayer.setUp(data.shortFilmList.get(0).videoUrl,"");
+            videoUrl = data.shortFilmList.get(0).videoUrl;
+            mYingtingPlayer.setUp(videoUrl,"");
             //设置播放器第一帧
-            Glide.with(XuanZuoActivity.this).load(data.shortFilmList.get(0).imageUrl).into(mYingtingPlayer.ivThumb);
+            imageUrl = data.shortFilmList.get(0).imageUrl;
+            Glide.with(XuanZuoActivity.this).load(imageUrl).into(mYingtingPlayer.ivThumb);
         }
 
         @Override
         public void Error(Request request) {
 
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+     recMAdapter.setReturnMovie(new RecMAdapter.ReturnMovie() {
+         @Override
+         public void movie(int xuan) {
+             Intent intent = new Intent(XuanZuoActivity.this, XuanZeActivity.class);
+             intent.putExtra("videoUrl",videoUrl);
+             intent.putExtra("imageUrl",imageUrl);
+             intent.putExtra("name",name);
+             startActivity(intent);
+         }
+     });
+
     }
 }

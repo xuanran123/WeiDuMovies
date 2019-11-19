@@ -1,12 +1,18 @@
 package com.bawei.weidumovie.view.fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +21,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.bawei.weidumovie.R;
 import com.bawei.weidumovie.disanfang.gaodeloction.MapLocationHelper;
 import com.bawei.weidumovie.model.bean.Banners;
@@ -69,7 +79,9 @@ public class FilmFragment extends Fragment implements View.OnClickListener {
     private TextView film_More1;
     private TextView film_More2;
     private MapLocationHelper helper;
-
+    public AMapLocationClientOption mLocationOption = null;
+    private AMapLocationClient mlocationClient;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_LOCATION = 1;
 
     @Nullable
     @Override
@@ -77,6 +89,18 @@ public class FilmFragment extends Fragment implements View.OnClickListener {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_film, null);
         initView(view);
 
+        //检查版本是否大于M
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_CALL_LOCATION);
+            } else {
+                //"权限已申请";
+                showLocation();
+            }
+        }
+        showLocation();
 
 
         //正在热映
@@ -95,6 +119,7 @@ public class FilmFragment extends Fragment implements View.OnClickListener {
         //即将上映适配器
         homeMAdapter1 = new HomeMAdapter1(getContext());
         recycler_shangying.setAdapter(homeMAdapter1);
+
         //热门电影
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
         linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -102,8 +127,6 @@ public class FilmFragment extends Fragment implements View.OnClickListener {
         //热门电影适配器
         homeMAdapter2 = new HomeMAdapter(getContext());
         recycler_remen.setAdapter(homeMAdapter2);
-
-
         //Banner轮播
         bannerPresente = new BannerPresente(new BannersPresen());
         bannerPresente.Request();
@@ -118,6 +141,67 @@ public class FilmFragment extends Fragment implements View.OnClickListener {
         homePresenter2.Request(1, 5);
         unbinder = ButterKnife.bind(this, view);
         return view;
+    }
+    private void showLocation() {
+        try {
+            mlocationClient = new AMapLocationClient(getContext());
+            mLocationOption = new AMapLocationClientOption();
+            mLocationOption.setNeedAddress(true);
+            mlocationClient.setLocationListener((AMapLocationListener) this);
+            //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            mLocationOption.setInterval(5000);
+            //设置定位参数
+            mlocationClient.setLocationOption(mLocationOption);
+            //启动定位
+            mlocationClient.startLocation();
+
+        } catch (Exception e) {
+
+        }
+    }
+    public void onLocationChanged(AMapLocation amapLocation) {
+        try {
+            if (amapLocation != null) {
+                if (amapLocation.getErrorCode() == 0) {
+                    //定位成功回调信息，设置相关消息
+                    //获取当前定位结果来源，如网络定位结果，详见定位类型表
+                    Log.i("定位类型", amapLocation.getLocationType() + "");
+                    Log.i("获取纬度", amapLocation.getLatitude() + "");
+                    Log.i("获取经度", amapLocation.getLongitude() + "");
+                    Log.i("获取精度信息", amapLocation.getAccuracy() + "");
+
+                    //如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                    Log.i("地址", amapLocation.getAddress());
+                    Log.i("国家信息", amapLocation.getCountry());
+                    Log.i("省信息", amapLocation.getProvince());
+                    Log.i("城市信息", amapLocation.getCity());
+                    Log.i("城区信息", amapLocation.getDistrict());
+                    Log.i("街道信息", amapLocation.getStreet());
+                    Log.i("街道门牌号信息", amapLocation.getStreetNum());
+                    Log.i("城市编码", amapLocation.getCityCode());
+                    Log.i("地区编码", amapLocation.getAdCode());
+                    Log.i("获取当前定位点的AOI信息", amapLocation.getAoiName());
+                    Log.i("获取当前室内定位的建筑物Id", amapLocation.getBuildingId());
+                    Log.i("获取当前室内定位的楼层", amapLocation.getFloor());
+                    Log.i("获取GPS的当前状态", amapLocation.getGpsAccuracyStatus() + "");
+
+//                    district = amapLocation.getDistrict();
+                    mLocation .setText(amapLocation.getDistrict());
+
+                    // 停止定位
+                    mlocationClient.stopLocation();
+                    mlocationClient.stopAssistantLocation();
+                } else {
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    Log.e("AmapError", "location Error, ErrCode:"
+                            + amapLocation.getErrorCode() + ", errInfo:"
+                            + amapLocation.getErrorInfo());
+                }
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     private void initView(View view) {

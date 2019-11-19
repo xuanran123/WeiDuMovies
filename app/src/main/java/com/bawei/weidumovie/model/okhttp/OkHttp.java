@@ -30,7 +30,7 @@ public class OkHttp {
                 .build();
 
         retrofit = new Retrofit.Builder()
-                //.baseUrl("http://mobile.bwstudent.com/movieApi/")
+               // .baseUrl("http://mobile.bwstudent.com/movieApi/")
                 .baseUrl("http://172.17.8.100/movieApi/")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -1,6 +1,12 @@
 package com.bawei.weidumovie.view.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -8,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.bawei.weidumovie.R;
 import com.bawei.weidumovie.view.fragment.CinemaFragment;
 import com.bawei.weidumovie.view.fragment.FilmFragment;
@@ -83,6 +93,8 @@ public class HomeActivity extends BaseActivity {
 //        mTvMovies.setVisibility(View.VISIBLE);
 
     }
+
+
 
     @Override
     protected int LayoutId() {

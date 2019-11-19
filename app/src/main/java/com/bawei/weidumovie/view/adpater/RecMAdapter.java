@@ -31,6 +31,8 @@ public class RecMAdapter extends RecyclerView.Adapter<RecMAdapter.MyViewHolder> 
     private List<Recommend> list;
     private Context context;
 
+    public RecMAdapter() {
+    }
 
     public RecMAdapter(Context context) {
         list = new ArrayList<>();
@@ -58,8 +60,7 @@ public class RecMAdapter extends RecyclerView.Adapter<RecMAdapter.MyViewHolder> 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, XuanZeActivity.class);
-                context.startActivity(intent);
+                returnMovie.movie(6);
             }
         });
     }
@@ -84,6 +85,15 @@ public class RecMAdapter extends RecyclerView.Adapter<RecMAdapter.MyViewHolder> 
             name = itemView.findViewById(R.id.end_name);
             site = itemView.findViewById(R.id.end_site);
         }
+    }
+   public static ReturnMovie returnMovie;
+
+    public void setReturnMovie(ReturnMovie returnMovie) {
+        this.returnMovie = returnMovie;
+    }
+
+    public interface ReturnMovie{
+        void movie(int xuan);
     }
 
 }
