@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 /**
  * <p>文件描述：<p>
  * <p>作者：染<p>
@@ -19,5 +21,6 @@ public class App extends Application {
         super.onCreate();
         context = this;
         MultiDex.install(this);
+        Fresco.initialize(this);
     }
 }

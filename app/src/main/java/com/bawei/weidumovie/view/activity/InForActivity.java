@@ -36,6 +36,7 @@ public class InForActivity extends BaseActivity implements View.OnClickListener 
     private TextView text_3D;
     private TextView text_et;
     private ImageView tupian;
+    private int id;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -94,7 +95,7 @@ public class InForActivity extends BaseActivity implements View.OnClickListener 
         });
 
         Intent intent = getIntent();
-        int id = intent.getIntExtra("Id", 0);
+        id = intent.getIntExtra("Id", 0);
 
 
         inForPresenter = new InForPresenter(new InForPresen());
@@ -109,6 +110,7 @@ public class InForActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(InForActivity.this,ScheduleActivity.class);
+        intent.putExtra("id",id);
         startActivity(intent);
     }
 

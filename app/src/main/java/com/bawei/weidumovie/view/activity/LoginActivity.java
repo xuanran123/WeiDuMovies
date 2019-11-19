@@ -22,6 +22,7 @@ import com.bawei.weidumovie.model.bean.Request;
 import com.bawei.weidumovie.model.bean.User;
 import com.bawei.weidumovie.presenter.LoginPresenter;
 import com.bawei.weidumovie.view.consion.DataCall;
+import com.bawei.weidumovie.view.fragment.ThirdlyFragment;
 
 import java.util.List;
 
@@ -79,20 +80,29 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    private class LoginPresen implements DataCall<Request<Login>> {
+    private class LoginPresen implements DataCall<Login> {
 
         UserDao userDao;
 
         @Override
-        public void Success(Request<Login> data) {
+        public void Success(Login data) {
             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
 
-            DaoSession daoSession = DaoMaster.newDevSession(LoginActivity.this, UserDao.TABLENAME);
-            userDao = daoSession.getUserDao();
-            userDao.deleteAll();
-
-            User user = new User();
-            user.setStatus(data.status);
+//            DaoSession daoSession = DaoMaster.newDevSession(LoginActivity.this, UserDao.TABLENAME);
+//            userDao = daoSession.getUserDao();
+//            userDao.deleteAll();
+//
+//            User user = new User();
+//             user.setSessionId(data.sessionId);
+//            user.setUserId(data.userId);
+//            user.setNickName(data.userInfo.nickName);
+//            user.setSex(data.userInfo.sex);
+//            user.setPhone(data.userInfo.phone);
+//            user.setHeadPic(data.userInfo.headPic);
+//
+//            userDao.insertOrReplace(user);
+//            Intent intent = new Intent(LoginActivity.this, ThirdlyFragment.class);
+//            startActivity(intent);
             finish();
         }
 

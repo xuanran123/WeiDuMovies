@@ -38,6 +38,8 @@
                 android:layout_height="0dp"
                 android:id="@+id/pq_tab"
                 android:layout_weight="1"
+                app:tabMode="scrollable"
+                app:tabTextColor="#ffffff"
                 android:background="#1c2243"
                 ></android.support.design.widget.TabLayout>
 
